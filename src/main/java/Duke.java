@@ -26,6 +26,7 @@ public class Duke {
 
         while(!line.equals("bye")){
             line = in.nextLine();
+
             if(!line.equals("bye") && !line.equals("list") && !line.startsWith("done")){
                 list.add(line);
                 listCompletion.add(taskIncomplete);
@@ -41,7 +42,6 @@ public class Duke {
                 }
                 System.out.println(lineLogo);
             }
-
             else if(line.startsWith("done")){
                 String taskString = line.substring(5);
                 int taskNum = Integer.parseInt(taskString);
