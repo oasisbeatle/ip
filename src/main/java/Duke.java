@@ -65,29 +65,11 @@ public class Duke {
                 break;
 
             case "done":
-                int taskNum = Integer.parseInt(commandSubject);
-                taskNum = taskNum - 1;
-                taskArrayList[taskNum].setTaskComplete(true);
-                System.out.println(lineLogo);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("   ["  + taskArrayList[taskNum].getTaskType() + "] [" +
-                        taskComplete + "] "+
-                        taskArrayList[taskNum].getTaskName());
-                System.out.println(lineLogo);
+                taskDone(lineLogo, commandSubject, taskArrayList, taskComplete);
                 break;
 
             case "list":
-                System.out.println(lineLogo);
-                System.out.println("Here are the tasks in your list:");
-                for(int i = 0; i < listIndex; i++){
-                    String taskStatus = (taskArrayList[i].isTaskComplete() == true)
-                            ? taskComplete : taskIncomplete;
-                    System.out.println( (i+1) + ".["  + taskArrayList[i].getTaskType() + "] [" +
-                            taskStatus + "] "+
-                            taskArrayList[i].getTaskName());
-                }
-                System.out.println(lineLogo);
-
+                taskList(lineLogo, taskArrayList, taskComplete, taskIncomplete, listIndex);
                 break;
 
             default:
@@ -101,6 +83,21 @@ public class Duke {
         System.out.println(lineLogo);
 
     }
+
+    private static void taskList(String lineLogo, Task[] taskArrayList, String taskComplete,
+            String taskIncomplete, int listIndex) {
+        System.out.println(lineLogo);
+        System.out.println("Here are the tasks in your list:");
+        for(int i = 0; i < listIndex; i++){
+            String taskStatus = (taskArrayList[i].isTaskComplete() == true)
+                    ? taskComplete : taskIncomplete;
+            System.out.println( (i+1) + ".["  + taskArrayList[i].getTaskType() + "] [" +
+                    taskStatus + "] "+
+                    taskArrayList[i].getTaskName());
+        }
+        System.out.println(lineLogo);
+    }
+
 
     public static void displayToDo(String lineLogo, String commandSubject, String taskCompletionStatus,
             int totalTasks, char taskType) {
@@ -123,6 +120,17 @@ public class Duke {
         System.out.println(lineLogo);
     }
 
+    public static void taskDone(String lineLogo, String commandSubject, Task[] taskArrayList, String taskComplete){
+        int taskNum = Integer.parseInt(commandSubject);
+        taskNum = taskNum - 1;
+        taskArrayList[taskNum].setTaskComplete(true);
+        System.out.println(lineLogo);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("   ["  + taskArrayList[taskNum].getTaskType() + "] [" +
+                taskComplete + "] "+
+                taskArrayList[taskNum].getTaskName());
+        System.out.println(lineLogo);
+    }
 
     public static String initDuke() {
         String logo = " ____        _        \n"
