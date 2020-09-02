@@ -8,12 +8,12 @@ public class Duke {
         initDuke();
         String lineLogo = "-----------------------------";
         Scanner in = new Scanner(System.in);
-        String line = " ";
-        String command = " ";
+        String userInput = " ";
+        String commandName = " ";
         String commandSubject = " ";
         String adverb = " ";
         String timeline = " ";
-        Task[] taskArrayList = new Task[100];
+        Task[] taskArray = new Task[100];
         int listIndex = 0;
         String taskIncomplete = Character.toString((char) 0x2718);
         String taskComplete = Character.toString((char) 0x2713);
@@ -21,59 +21,59 @@ public class Duke {
         int slashPos = 0;
 
         while(true){
-            line = in.nextLine();
+            userInput = in.nextLine();
 
-            if(line.equals("bye")){
+            if(userInput.equals("bye")){
                 break;
             }
 
-            if(line.contains(" ")){
-                endPos = line.indexOf(" ");
-                command = line.substring(0, endPos);
-                commandSubject = line.substring(endPos + 1);
-                if(line.contains("/")){
+            if(userInput.contains(" ")){
+                endPos = userInput.indexOf(" ");
+                commandName = userInput.substring(0, endPos);
+                commandSubject = userInput.substring(endPos + 1);
+                if(userInput.contains("/")){
                     slashPos = commandSubject.indexOf("/");
                     timeline = commandSubject.substring(slashPos + 3);
                     commandSubject = commandSubject.substring(0, slashPos - 1);
                 }
             }
             else{
-                command = line;
+                commandName = userInput;
             }
 
 
-            switch(command){
+            switch(commandName){
             case "todo":
-                taskArrayList[listIndex] = new Todo(commandSubject);
+                taskArray[listIndex] = new Todo(commandSubject);
                 displayToDo(lineLogo, commandSubject, taskIncomplete, listIndex + 1, 'T');
                 listIndex++;
                 break;
 
 
             case "deadline":
-                taskArrayList[listIndex] = new Deadline(commandSubject, timeline);
+                taskArray[listIndex] = new Deadline(commandSubject, timeline);
                 displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
                         'D', timeline);
                 listIndex++;
                 break;
 
             case "event":
-                taskArrayList[listIndex] = new Event(commandSubject, timeline);
+                taskArray[listIndex] = new Event(commandSubject, timeline);
                 displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
                         'E', timeline);
                 listIndex++;
                 break;
 
             case "done":
-                taskDone(lineLogo, commandSubject, taskArrayList, taskComplete);
+                taskDone(lineLogo, commandSubject, taskArray, taskComplete);
                 break;
 
             case "list":
-                taskList(lineLogo, taskArrayList, taskComplete, taskIncomplete, listIndex);
+                taskList(lineLogo, taskArray, taskComplete, taskIncomplete, listIndex);
                 break;
 
             default:
-                throw new IllegalStateException("Unexpected value: " + command);
+                throw new IllegalStateException("Unexpected value: " + commandName);
             }
 
         }
