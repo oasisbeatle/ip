@@ -1,6 +1,7 @@
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Duke {
     public static void main(String[] args) {
@@ -12,9 +13,9 @@ public class Duke {
         String commandSubject = " ";
         String adverb = " ";
         String timeline = " ";
-        ArrayList<Task> taskArrayList = new ArrayList<>();
-        Task currentTask;
-        String taskIncomplete = Character.toString((char) 0x274C);
+        Task[] taskArrayList = new Task[100];
+        int listIndex = 0;
+        String taskIncomplete = Character.toString((char) 0x2718);
         String taskComplete = Character.toString((char) 0x2713);
         int endPos = 0;
         int slashPos = 0;
@@ -43,40 +44,57 @@ public class Duke {
 
             switch(command){
             case "todo":
-                taskArrayList.add(new Task('T', false, commandSubject, null));
-                displayToDo(lineLogo, commandSubject, taskIncomplete, Task.getTotalTasks(), Task.getTaskType());
+                taskArrayList[listIndex] = new Todo(commandSubject);
+                displayToDo(lineLogo, commandSubject, taskIncomplete, listIndex + 1, 'T');
+                listIndex++;
                 break;
 
+
             case "deadline":
-                taskArrayList.add(new Task('D', false, commandSubject, timeline));
-                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, Task.getTotalTasks(),
-                        Task.getTaskType(), timeline);
+                taskArrayList[listIndex] = new Deadline(commandSubject, timeline);
+                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
+                        'D', timeline);
+                listIndex++;
                 break;
 
             case "event":
-                taskArrayList.add(new Task('E', false, commandSubject, timeline));
-                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, Task.getTotalTasks(), Task.getTaskType(), timeline);
+                taskArrayList[listIndex] = new Event(commandSubject, timeline);
+                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
+                        'E', timeline);
+                listIndex++;
                 break;
 
             case "done":
                 int taskNum = Integer.parseInt(commandSubject);
-                taskNum--;
-                currentTask = taskArrayList.get(taskNum);
-                currentTask.setIsTaskComplete(true);
+                taskNum = taskNum - 1;
+                taskArrayList[taskNum].setTaskComplete(true);
                 System.out.println(lineLogo);
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("   ["  + currentTask.getTaskType() + "] [" + taskComplete + "] "+
-                        currentTask.getTaskName());
+                System.out.println("   ["  + taskArrayList[taskNum].getTaskType() + "] [" +
+                        taskComplete + "] "+
+                        taskArrayList[taskNum].getTaskName());
                 System.out.println(lineLogo);
                 break;
 
             case "list":
+                System.out.println(lineLogo);
+                System.out.println("Here are the tasks in your list:");
+                for(int i = 0; i < listIndex; i++){
+                    String taskStatus = (taskArrayList[i].isTaskComplete() == true)
+                            ? taskComplete : taskIncomplete;
+                    System.out.println( (i+1) + ".["  + taskArrayList[i].getTaskType() + "] [" +
+                            taskStatus + "] "+
+                            taskArrayList[i].getTaskName());
+                }
+                System.out.println(lineLogo);
+
                 break;
 
+            default:
+                throw new IllegalStateException("Unexpected value: " + command);
             }
 
         }
-
 
         System.out.println(lineLogo);
         System.out.println("Bye. Hope to see you again soon!");

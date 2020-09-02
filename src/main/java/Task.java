@@ -1,41 +1,29 @@
 import sun.tools.tree.BooleanExpression;
 
 public class Task {
-    private static char taskType;
-    private static boolean isTaskComplete;
-    private static String taskName;
-    private static int totalTasks = 0;
-    private static String timeFrame;
+    protected String taskName;
+    protected boolean isTaskComplete;
+    protected char taskType;
 
-    public Task(char taskType, boolean isTaskComplete, String taskName, String timeFrame){
-        Task.taskType = taskType;
-        Task.isTaskComplete = false;
-        Task.taskName = taskName;
-        Task.timeFrame = timeFrame;
-        totalTasks++;
+    public Task(String taskName){
+        this.taskName = taskName;
+        this.isTaskComplete = false;
+        this.taskType = ' ';
     }
 
-    public static String getTaskName() {
+    public String getTaskName() {
         return taskName;
     }
 
-    public static char getTaskType() {
-        return taskType;
-    }
-
-    public static String getTimeFrame() {
-        return timeFrame;
-    }
-
-    public static boolean isTaskComplete() {
+    public boolean isTaskComplete() {
         return isTaskComplete;
     }
 
-    public static void setIsTaskComplete(boolean isTaskComplete) {
-        Task.isTaskComplete = isTaskComplete;
+    public void setTaskComplete(boolean isTaskComplete) {
+        this.isTaskComplete = isTaskComplete;
     }
 
-    public static int getTotalTasks() {
-        return totalTasks;
+    public char getTaskType() {
+        return taskType;
     }
 }
