@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         initDuke();
         String lineLogo = "-----------------------------";
         Scanner in = new Scanner(System.in);
         String userInput = " ";
-        String commandName = " ";
-        String commandSubject = " ";
         String adverb = " ";
-        String timeline = " ";
         Task[] taskArray = new Task[100];
         int listIndex = 0;
         String taskIncomplete = Character.toString((char) 0x2718);
@@ -21,6 +18,9 @@ public class Duke {
         int slashPos = 0;
 
         while(true){
+            String commandName = " ";
+            String commandSubject = " ";
+            String timeline = " ";
             userInput = in.nextLine();
 
             if(userInput.equals("bye")){
@@ -41,9 +41,11 @@ public class Duke {
                 commandName = userInput;
             }
 
-
-            switch(commandName){
+            switch (commandName) {
             case "todo":
+                if(commandSubject == " "){
+                    throw new DukeException("You didnt give me the task name.");
+                }
                 taskArray[listIndex] = new Todo(commandSubject);
                 displayToDo(lineLogo, commandSubject, taskIncomplete, listIndex + 1, 'T');
                 listIndex++;
@@ -51,6 +53,9 @@ public class Duke {
 
 
             case "deadline":
+                if(commandSubject == " "){
+                    throw new DukeException("You didnt give me a deadline name.");
+                }
                 taskArray[listIndex] = new Deadline(commandSubject, timeline);
                 displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
                         'D', timeline);
@@ -58,6 +63,10 @@ public class Duke {
                 break;
 
             case "event":
+                if(commandSubject == " "){
+                    throw new DukeException("You didnt give me an event name.");
+                }
+
                 taskArray[listIndex] = new Event(commandSubject, timeline);
                 displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
                         'E', timeline);
@@ -74,10 +83,9 @@ public class Duke {
 
             default:
                 System.out.println(lineLogo);
-                System.out.println("Command Not Found");
-                System.out.println(lineLogo);
-                break;
+                throw new DukeException("I can't process your command as it does not exist. Please Re-Enter your Command");
             }
+
 
         }
 
