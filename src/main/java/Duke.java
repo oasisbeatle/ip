@@ -1,7 +1,10 @@
-import java.util.Iterator;
+import Exceptions.DukeException;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Duke {
 
