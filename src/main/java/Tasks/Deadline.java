@@ -1,4 +1,6 @@
-public class Deadline extends Task{
+package Tasks;
+
+public class Deadline extends Task {
     protected boolean isTaskComplete;
     protected char taskType;
     protected String timeline;
