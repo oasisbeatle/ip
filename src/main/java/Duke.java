@@ -4,98 +4,114 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Duke {
+
+    //declare all constant integers
+    private static final int MAX_ARRAY_LENGTH = 100;
+
+    //declare all constant strings
+    private static final String lineLogo = "-----------------------------";
+    private static final String taskIncomplete = Character.toString((char) 0x2718);
+    private static final String taskComplete = Character.toString((char) 0x2713);
+
+    //declare string variables
+    private static String userInput = " ";
+
+    //declare array to store list of tasks
+    private static Task[] taskArray = new Task[MAX_ARRAY_LENGTH];
+
+
+    //main method
     public static void main(String[] args) throws DukeException {
         initDuke();
-        String lineLogo = "-----------------------------";
         Scanner in = new Scanner(System.in);
-        String userInput = " ";
-        String adverb = " ";
-        Task[] taskArray = new Task[100];
-        int listIndex = 0;
-        String taskIncomplete = Character.toString((char) 0x2718);
-        String taskComplete = Character.toString((char) 0x2713);
-        int endPos = 0;
-        int slashPos = 0;
-
         while(true){
-            String commandName = " ";
-            String commandSubject = " ";
-            String timeline = " ";
             userInput = in.nextLine();
-
-            if(userInput.equals("bye")){
+            if(userInput.toLowerCase().equals("bye")){
                 break;
             }
-
-            if(userInput.contains(" ")){
-                endPos = userInput.indexOf(" ");
-                commandName = userInput.substring(0, endPos);
-                commandSubject = userInput.substring(endPos + 1);
-                if(userInput.contains("/")){
-                    slashPos = commandSubject.indexOf("/");
-                    timeline = commandSubject.substring(slashPos + 3);
-                    commandSubject = commandSubject.substring(0, slashPos - 1);
-                }
-            }
-            else{
-                commandName = userInput;
-            }
-
-            switch (commandName) {
-            case "todo":
-                if(commandSubject == " "){
-                    throw new DukeException("You didnt give me the task name.");
-                }
-                taskArray[listIndex] = new Todo(commandSubject);
-                displayToDo(lineLogo, commandSubject, taskIncomplete, listIndex + 1, 'T');
-                listIndex++;
-                break;
-
-
-            case "deadline":
-                if(commandSubject == " "){
-                    throw new DukeException("You didnt give me a deadline name.");
-                }
-                taskArray[listIndex] = new Deadline(commandSubject, timeline);
-                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
-                        'D', timeline);
-                listIndex++;
-                break;
-
-            case "event":
-                if(commandSubject == " "){
-                    throw new DukeException("You didnt give me an event name.");
-                }
-
-                taskArray[listIndex] = new Event(commandSubject, timeline);
-                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
-                        'E', timeline);
-                listIndex++;
-                break;
-
-            case "done":
-                taskDone(lineLogo, commandSubject, taskArray, taskComplete);
-                break;
-
-            case "list":
-                taskList(lineLogo, taskArray, taskComplete, taskIncomplete, listIndex);
-                break;
-
-            default:
-                System.out.println(lineLogo);
-                throw new DukeException("I can't process your command as it does not exist. Please Re-Enter your Command");
-            }
-
-
+            taskManager(userInput);
         }
 
-        System.out.println(lineLogo);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(lineLogo);
+        printBye();
 
     }
 
-    private static void taskList(String lineLogo, Task[] taskArrayList, String taskComplete,
+
+    public static void taskManager(String userInput) throws DukeException {
+
+        //declare integers
+        int listIndex = 0;
+        int endPos = 0;
+        int slashPos = 0;
+
+        //declare strings
+        String commandName = " ";
+        String commandSubject = " ";
+        String timeline = " ";
+
+        //get command
+        if (userInput.contains(" ")) {
+            endPos = userInput.indexOf(" ");
+            commandName = userInput.substring(0, endPos);
+            commandSubject = userInput.substring(endPos + 1);
+            if (userInput.contains("/")) {
+                slashPos = commandSubject.indexOf("/");
+                timeline = commandSubject.substring(slashPos + 3);
+                commandSubject = commandSubject.substring(0, slashPos - 1);
+            }
+        } else {
+            commandName = userInput;
+        }
+
+        if (commandSubject == " ") {
+            throw new DukeException("Sorry your command does not have any instructions, I cannot process it.");
+        }
+
+        //execution of the commands
+        switch (commandName) {
+        case "todo":
+            taskArray[listIndex] = new Todo(commandSubject);
+            displayToDo(lineLogo, commandSubject, taskIncomplete, listIndex + 1, 'T');
+            listIndex++;
+            break;
+
+
+        case "deadline":
+            if(timeline == " "){
+                throw new DukeException("I require the submission date for this task. So please try again.");
+            }
+            taskArray[listIndex] = new Deadline(commandSubject, timeline);
+            displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
+                    'D', timeline);
+            listIndex++;
+            break;
+
+        case "event":
+            if(timeline == " "){
+                throw new DukeException("I require the submission date for this task. So please try again.");
+            }
+            taskArray[listIndex] = new Event(commandSubject, timeline);
+            displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
+                    'E', timeline);
+            listIndex++;
+            break;
+
+        case "done":
+            taskDone(lineLogo, commandSubject, taskArray, taskComplete);
+            break;
+
+        case "list":
+            taskList(lineLogo, taskArray, taskComplete, taskIncomplete, listIndex);
+            break;
+
+        default:
+            throw new DukeException("Sorry! I can't find your command");
+
+        }
+}
+
+
+    public static void taskList(String lineLogo, Task[] taskArrayList, String taskComplete,
             String taskIncomplete, int listIndex) {
         System.out.println(lineLogo);
         System.out.println("Here are the tasks in your list:");
@@ -156,5 +172,11 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println(lineLogo);
         return lineLogo;
+    }
+
+    public static void printBye() {
+        System.out.println(lineLogo);
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(lineLogo);
     }
 }
