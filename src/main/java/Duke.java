@@ -73,7 +73,10 @@ public class Duke {
                 break;
 
             default:
-                throw new IllegalStateException("Unexpected value: " + commandName);
+                System.out.println(lineLogo);
+                System.out.println("Command Not Found");
+                System.out.println(lineLogo);
+                break;
             }
 
         }
