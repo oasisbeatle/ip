@@ -66,51 +66,74 @@ public class Duke {
             commandName = userInput;
         }
 
-        if (commandSubject == " ") {
-            throw new DukeException("Sorry your command does not have any instructions, I cannot process it.");
+        try {
+            if (commandSubject == " ") {
+                throw new DukeException("Sorry your command does not have any instructions, I cannot process it. " +
+                        "Please retype your command");
+            }
+        } catch(DukeException d) {
+            System.out.println(lineLogo);
+            System.out.println(d.getMessage());
+            System.out.println(lineLogo);
+            return;
         }
+
 
         //execution of the commands
-        switch (commandName) {
-        case "todo":
-            taskArray[listIndex] = new Todo(commandSubject);
-            displayToDo(lineLogo, commandSubject, taskIncomplete, listIndex + 1, 'T');
-            listIndex++;
-            break;
+        try {
+            switch (commandName) {
+            case "todo":
+                taskArray[listIndex] = new Todo(commandSubject);
+                displayToDo(lineLogo, commandSubject, taskIncomplete, listIndex + 1, 'T');
+                listIndex++;
+                break;
 
 
-        case "deadline":
-            if(timeline == " "){
-                throw new DukeException("I require the submission date for this task. So please try again.");
+            case "deadline":
+                if (timeline == " ") {
+                    System.out.println("I require the submission date for this task. So please try again.");
+                    break;
+                }
+                taskArray[listIndex] = new Deadline(commandSubject, timeline);
+                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
+                        'D', timeline);
+                listIndex++;
+                break;
+
+            case "event":
+                if (timeline == " ") {
+                    System.out.println("I require the event date for this task. So please try again.");
+                    break;
+                }
+                taskArray[listIndex] = new Event(commandSubject, timeline);
+                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
+                        'E', timeline);
+                listIndex++;
+                break;
+
+            case "done":
+                taskDone(lineLogo, commandSubject, taskArray, taskComplete);
+                break;
+
+            case "list":
+                taskList(lineLogo, taskArray, taskComplete, taskIncomplete, listIndex);
+                break;
+
+            default:
+                throw new DukeException("Sorry! I can't find your command. Please retype your command.");
+
             }
-            taskArray[listIndex] = new Deadline(commandSubject, timeline);
-            displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
-                    'D', timeline);
-            listIndex++;
-            break;
+        } catch(DukeException e){
+            System.out.println(lineLogo);
+            System.out.println(e.getMessage());
+            System.out.println(lineLogo);
 
-        case "event":
-            if(timeline == " "){
-                throw new DukeException("I require the submission date for this task. So please try again.");
-            }
-            taskArray[listIndex] = new Event(commandSubject, timeline);
-            displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
-                    'E', timeline);
-            listIndex++;
-            break;
-
-        case "done":
-            taskDone(lineLogo, commandSubject, taskArray, taskComplete);
-            break;
-
-        case "list":
-            taskList(lineLogo, taskArray, taskComplete, taskIncomplete, listIndex);
-            break;
-
-        default:
-            throw new DukeException("Sorry! I can't find your command");
-
+        } catch(NumberFormatException e){
+            System.out.println(lineLogo);
+            System.out.println("Expected integer. Please enter a number.");
+            System.out.println(lineLogo);
         }
+
 }
 
 
