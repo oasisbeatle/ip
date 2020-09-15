@@ -120,6 +120,10 @@ public class Duke {
                 taskList(lineLogo, taskList, taskComplete, taskIncomplete);
                 break;
 
+            case "delete":
+                taskDelete(lineLogo, commandSubject, taskList);
+                break;
+
             default:
                 throw new DukeException("Sorry! I can't find your command. Please retype your command.");
 
@@ -137,12 +141,32 @@ public class Duke {
 
 }
 
+    private static void taskDelete(String lineLogo, String commandSubject, ArrayList<Task> taskList) {
+        int taskNum = Integer.parseInt(commandSubject);
+        taskNum = taskNum - 1;
+        char taskType = taskList.get(taskNum).getTaskType();
+        String taskStatus = (taskList.get(taskNum).isTaskComplete())
+                ? taskComplete : taskIncomplete;
+        if(taskType == 'T'){
+            displayDeleteTodo(lineLogo, taskList.get(taskNum).getTaskName(),
+                    taskStatus, taskList.size() - 1, taskType);
+        }else{
+            displayDeletedTodoWithTime(lineLogo, taskList.get(taskNum).getTaskName(),
+                    taskStatus, taskList.size() - 1, taskType, taskList.get(taskNum).getTimeline());
+        }
+        taskList.remove(taskNum);
+    }
+
 
     public static void taskList(String lineLogo, ArrayList<Task> taskList, String taskComplete,
             String taskIncomplete) {
         System.out.println(lineLogo);
-        System.out.println("Here are the tasks in your list:");
-
+        if (taskList.size() == 0){
+            System.out.println("There are no tasks left for you. Add a new task!");
+        }
+        else{
+            System.out.println("Here are the tasks in your list:");
+        }
         for(int i = 0; i < taskList.size(); i++){
             String taskStatus = (taskList.get(i).isTaskComplete())
                     ? taskComplete : taskIncomplete;
@@ -158,7 +182,7 @@ public class Duke {
                     taskList.get(i).getTaskName());
         } else{
             String adverb = (taskList.get(i).getTaskType() == 'D') ? "by:" : "at:";
-            System.out.println( (i +1) + ".["  + taskList.get(i).getTaskType() + "] [" +
+            System.out.println( (i +1) + ".["  + taskList.get(i).getTaskType() + "][" +
                     taskStatus + "] "+
                     taskList.get(i).getTaskName() + "(" + adverb + taskList.get(i).getTimeline() + ") ");
         }
@@ -180,6 +204,27 @@ public class Duke {
         adverb = (taskType == 'D')? "by:" : "at:";
         System.out.println(lineLogo);
         System.out.println("Got it. I've added this task:");
+        System.out.println(" [" + taskType + "] [" + taskCompletionStatus + "] "+ commandSubject + " (" + adverb +
+                timeline + ")");
+        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+        System.out.println(lineLogo);
+    }
+
+    public static void displayDeleteTodo(String lineLogo, String commandSubject, String taskCompletionStatus,
+                    int totalTasks, char taskType) {
+        System.out.println(lineLogo);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" [" + taskType + "] [" + taskCompletionStatus + "] " + commandSubject);
+        System.out.println("Now you have " + totalTasks + " tasks in the list.");
+        System.out.println(lineLogo);
+    }
+
+    public static void displayDeletedTodoWithTime(String lineLogo, String commandSubject, String taskCompletionStatus,
+                    int totalTasks, char taskType, String timeline) {
+        String adverb;
+        adverb = (taskType == 'D')? "by:" : "at:";
+        System.out.println(lineLogo);
+        System.out.println("Noted. I've removed this task:");
         System.out.println(" [" + taskType + "] [" + taskCompletionStatus + "] "+ commandSubject + " (" + adverb +
                 timeline + ")");
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
