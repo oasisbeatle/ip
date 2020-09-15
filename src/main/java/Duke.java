@@ -4,6 +4,10 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -25,8 +29,13 @@ public class Duke {
 
 
     //main method
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
         initDuke();
+        try {
+            readFile(taskList);
+        } catch (IOException e) {
+            System.out.println("Unable to Read The File");
+        }
         Scanner in = new Scanner(System.in);
         while(true){
             userInput = in.nextLine();
@@ -41,7 +50,7 @@ public class Duke {
     }
 
 
-    public static void taskManager(String userInput) throws DukeException {
+    public static void taskManager(String userInput) throws DukeException, IOException {
 
         //declare integers
         int listIndex = 0;
@@ -87,6 +96,7 @@ public class Duke {
                 Task newTodo = new Todo(commandSubject);
                 taskList.add(newTodo);
                 displayToDo(lineLogo, commandSubject, taskIncomplete, taskList.size(), 'T');
+                writeToFile(taskList);
                 break;
 
 
@@ -99,6 +109,7 @@ public class Duke {
                 taskList.add(newDeadline);
                 displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, taskList.size(),
                         'D', timeline);
+                writeToFile(taskList);
                 break;
 
             case "event":
@@ -110,10 +121,12 @@ public class Duke {
                 taskList.add(newEvent);
                 displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, taskList.size(),
                         'E', timeline);
+                writeToFile(taskList);
                 break;
 
             case "done":
                 taskDone(lineLogo, commandSubject, taskList, taskComplete);
+                writeToFile(taskList);
                 break;
 
             case "list":
@@ -186,7 +199,7 @@ public class Duke {
         System.out.println(lineLogo);
     }
 
-    public static void taskDone(String lineLogo, String commandSubject, ArrayList<Task> taskList, String taskComplete){
+    public static void taskDone(String lineLogo, String commandSubject, ArrayList<Task> taskList, String taskComplete) throws IOException {
         int taskNum = Integer.parseInt(commandSubject);
         taskNum = taskNum - 1;
         String taskStatus = taskComplete;
@@ -196,6 +209,7 @@ public class Duke {
             Task completedTodo = new Todo(taskList.get(taskNum).getTaskName());
             completedTodo.setTaskComplete();
             taskList.set(taskNum, completedTodo);
+            writeToFile(taskList);
             break;
 
         case 'D':
@@ -203,6 +217,7 @@ public class Duke {
                     taskList.get(taskNum).getTimeline());
             completedDeadline.setTaskComplete();
             taskList.set(taskNum, completedDeadline);
+            writeToFile(taskList);
             break;
 
         case 'E':
@@ -242,4 +257,56 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(lineLogo);
     }
+
+    public static void writeToFile(ArrayList<Task> taskList) throws IOException {
+        FileWriter fw = new FileWriter("Duke.txt");
+        for(int i = 0; i < taskList.size(); i++) {
+            String savedTask;
+            savedTask = String.valueOf(taskList.get(i).getTaskType())+ "," + taskList.get(i).getTaskName()
+                    + "," + taskList.get(i).isTaskComplete() + "," + taskList.get(i).getTimeline() + ","
+                    + "\n";
+            fw.write(savedTask);
+        }
+        fw.close();
+    }
+
+    public static void readFile(ArrayList<Task> taskList) throws IOException{
+        File f = new File("Duke.txt");
+
+        if(f.exists()){
+            Scanner fileRead = new Scanner(f);
+            while(fileRead.hasNext()){
+                String userInput = fileRead.nextLine();
+                String taskInfo[] = userInput.split(",");
+                switch (taskInfo[0]){
+                case "T":
+                    Todo oldTodo = new Todo(taskInfo[1]);
+                    oldTodo.setTaskStatus(Boolean.parseBoolean(taskInfo[2]));
+                    taskList.add(oldTodo);
+                    break;
+                case "D":
+                    Deadline oldDeadline = new Deadline(taskInfo[1], taskInfo[3]);
+                    oldDeadline.setTaskStatus(Boolean.parseBoolean(taskInfo[2]));
+                    taskList.add(oldDeadline);
+                    break;
+                case "E":
+                    Event oldEvent = new Event(taskInfo[1], taskInfo[3]);
+                    oldEvent.setTaskStatus(Boolean.parseBoolean(taskInfo[2]));
+                    taskList.add(oldEvent);
+                    break;
+                default:
+                    break;
+                }
+            }
+        } else {
+            f.createNewFile();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^");
+            System.out.println("File Created ^-^");
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^");
+        }
+
+    }
+
+
 }
+
