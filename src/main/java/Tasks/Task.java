@@ -26,6 +26,8 @@ public class Task {
         this.isTaskComplete = true;
     }
 
+    public void setTaskStatus(boolean taskStatus){this.isTaskComplete = taskStatus; }
+
     public char getTaskType() {
         return taskType;
     }
