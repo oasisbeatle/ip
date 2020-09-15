@@ -5,6 +5,7 @@ import Tasks.Task;
 import Tasks.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -20,7 +21,7 @@ public class Duke {
     private static String userInput = " ";
 
     //declare array to store list of tasks
-    private static Task[] taskArray = new Task[MAX_ARRAY_LENGTH];
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
 
 
     //main method
@@ -67,7 +68,7 @@ public class Duke {
         }
 
         try {
-            if (commandSubject == " ") {
+            if (commandSubject == " " && !commandName.equals("list")) {
                 throw new DukeException("Sorry your command does not have any instructions, I cannot process it. " +
                         "Please retype your command");
             }
@@ -83,9 +84,9 @@ public class Duke {
         try {
             switch (commandName) {
             case "todo":
-                taskArray[listIndex] = new Todo(commandSubject);
-                displayToDo(lineLogo, commandSubject, taskIncomplete, listIndex + 1, 'T');
-                listIndex++;
+                Task newTodo = new Todo(commandSubject);
+                taskList.add(newTodo);
+                displayToDo(lineLogo, commandSubject, taskIncomplete, taskList.size(), 'T');
                 break;
 
 
@@ -94,10 +95,10 @@ public class Duke {
                     System.out.println("I require the submission date for this task. So please try again.");
                     break;
                 }
-                taskArray[listIndex] = new Deadline(commandSubject, timeline);
-                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
+                Task newDeadline = new Deadline(commandSubject, timeline);
+                taskList.add(newDeadline);
+                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, taskList.size(),
                         'D', timeline);
-                listIndex++;
                 break;
 
             case "event":
@@ -105,18 +106,18 @@ public class Duke {
                     System.out.println("I require the event date for this task. So please try again.");
                     break;
                 }
-                taskArray[listIndex] = new Event(commandSubject, timeline);
-                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, listIndex + 1,
+                Task newEvent = new Event(commandSubject, timeline);
+                taskList.add(newEvent);
+                displayToDoWithTime(lineLogo, commandSubject, taskIncomplete, taskList.size(),
                         'E', timeline);
-                listIndex++;
                 break;
 
             case "done":
-                taskDone(lineLogo, commandSubject, taskArray, taskComplete);
+                taskDone(lineLogo, commandSubject, taskList, taskComplete);
                 break;
 
             case "list":
-                taskList(lineLogo, taskArray, taskComplete, taskIncomplete, listIndex);
+                taskList(lineLogo, taskList, taskComplete, taskIncomplete);
                 break;
 
             default:
@@ -137,18 +138,30 @@ public class Duke {
 }
 
 
-    public static void taskList(String lineLogo, Task[] taskArrayList, String taskComplete,
-            String taskIncomplete, int listIndex) {
+    public static void taskList(String lineLogo, ArrayList<Task> taskList, String taskComplete,
+            String taskIncomplete) {
         System.out.println(lineLogo);
         System.out.println("Here are the tasks in your list:");
-        for(int i = 0; i < listIndex; i++){
-            String taskStatus = (taskArrayList[i].isTaskComplete() == true)
+
+        for(int i = 0; i < taskList.size(); i++){
+            String taskStatus = (taskList.get(i).isTaskComplete())
                     ? taskComplete : taskIncomplete;
-            System.out.println( (i+1) + ".["  + taskArrayList[i].getTaskType() + "] [" +
-                    taskStatus + "] "+
-                    taskArrayList[i].getTaskName());
+            taskPrinter(taskList, i, taskStatus);
         }
         System.out.println(lineLogo);
+    }
+
+    public static void taskPrinter(ArrayList<Task> taskList, int i, String taskStatus) {
+        if(taskList.get(i).getTaskType() == 'T'){
+            System.out.println( (i +1) + ".["  + taskList.get(i).getTaskType() + "] [" +
+                    taskStatus + "] "+
+                    taskList.get(i).getTaskName());
+        } else{
+            String adverb = (taskList.get(i).getTaskType() == 'D') ? "by:" : "at:";
+            System.out.println( (i +1) + ".["  + taskList.get(i).getTaskType() + "] [" +
+                    taskStatus + "] "+
+                    taskList.get(i).getTaskName() + "(" + adverb + taskList.get(i).getTimeline() + ") ");
+        }
     }
 
 
@@ -173,15 +186,39 @@ public class Duke {
         System.out.println(lineLogo);
     }
 
-    public static void taskDone(String lineLogo, String commandSubject, Task[] taskArrayList, String taskComplete){
+    public static void taskDone(String lineLogo, String commandSubject, ArrayList<Task> taskList, String taskComplete){
         int taskNum = Integer.parseInt(commandSubject);
         taskNum = taskNum - 1;
-        taskArrayList[taskNum].setTaskComplete(true);
+        String taskStatus = taskComplete;
+        char taskType = taskList.get(taskNum).getTaskType();
+        switch (taskType) {
+        case 'T':
+            Task completedTodo = new Todo(taskList.get(taskNum).getTaskName());
+            completedTodo.setTaskComplete();
+            taskList.set(taskNum, completedTodo);
+            break;
+
+        case 'D':
+            Task completedDeadline = new Deadline(taskList.get(taskNum).getTaskName(),
+                    taskList.get(taskNum).getTimeline());
+            completedDeadline.setTaskComplete();
+            taskList.set(taskNum, completedDeadline);
+            break;
+
+        case 'E':
+            Task completedEvent = new Event(taskList.get(taskNum).getTaskName(),
+                    taskList.get(taskNum).getTimeline());
+            completedEvent.setTaskComplete();
+            taskList.set(taskNum, completedEvent);
+            break;
+
+        default:
+            break;
+        }
+
         System.out.println(lineLogo);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("   ["  + taskArrayList[taskNum].getTaskType() + "] [" +
-                taskComplete + "] "+
-                taskArrayList[taskNum].getTaskName());
+        taskPrinter(taskList, taskNum, taskStatus);
         System.out.println(lineLogo);
     }
 

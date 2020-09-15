@@ -6,6 +6,7 @@ public class Task {
     protected String taskName;
     protected boolean isTaskComplete;
     protected char taskType;
+    protected String timeline;
 
     public Task(String taskName){
         this.taskName = taskName;
@@ -21,11 +22,15 @@ public class Task {
         return isTaskComplete;
     }
 
-    public void setTaskComplete(boolean isTaskComplete) {
-        this.isTaskComplete = isTaskComplete;
+    public void setTaskComplete() {
+        this.isTaskComplete = true;
     }
 
     public char getTaskType() {
         return taskType;
+    }
+
+    public String getTimeline() {
+        return timeline;
     }
 }
