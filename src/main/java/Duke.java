@@ -154,7 +154,7 @@ public class Duke {
 
 }
 
-    private static void taskDelete(String lineLogo, String commandSubject, ArrayList<Task> taskList) {
+    private static void taskDelete(String lineLogo, String commandSubject, ArrayList<Task> taskList) throws IOException {
         int taskNum = Integer.parseInt(commandSubject);
         taskNum = taskNum - 1;
         char taskType = taskList.get(taskNum).getTaskType();
@@ -168,6 +168,7 @@ public class Duke {
                     taskStatus, taskList.size() - 1, taskType, taskList.get(taskNum).getTimeline());
         }
         taskList.remove(taskNum);
+        writeToFile(taskList);
     }
 
 
@@ -271,6 +272,7 @@ public class Duke {
                     taskList.get(taskNum).getTimeline());
             completedEvent.setTaskComplete();
             taskList.set(taskNum, completedEvent);
+            writeToFile(taskList);
             break;
 
         default:
