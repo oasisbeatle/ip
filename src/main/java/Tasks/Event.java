@@ -1,16 +1,18 @@
 package Tasks;
 
 import Tasks.Task;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     protected boolean isTaskComplete;
     protected char taskType;
-    protected String timeline;
+    protected LocalDateTime timeline;
 
-    public Event(String taskName, String deadline) {
+    public Event(String taskName, String timeline) {
         super(taskName);
         this.taskType = 'E';
-        this.timeline = deadline;
+        this.timeline = LocalDateTime.parse(timeline, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
 
@@ -19,6 +21,10 @@ public class Event extends Task {
     }
 
     public String getTimeline() {
-        return timeline;
+        return timeline.format(DateTimeFormatter.ofPattern("MMM dd yyyy 'at' HH:mm"));
+    }
+
+    public String getTimelineCustom(){
+        return timeline.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 }

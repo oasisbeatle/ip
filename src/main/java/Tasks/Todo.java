@@ -16,10 +16,5 @@ public class Todo extends Task {
         return taskType;
     }
 
-    @Override
-    public String getTimeline() {
-        return timeline;
-    }
-
 }
 
