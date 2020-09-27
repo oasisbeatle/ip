@@ -107,6 +107,10 @@ public class Donald {
                  storage.writeToFile(tasks.getTaskArrayList());
                 break;
 
+            case "find":
+                ui.taskFind(tasks.getTaskArrayList(), taskArray[1]);
+                break;
+
             default:
                 throw new DukeException("Sorry! I can't find your command. Please retype your command.");
 

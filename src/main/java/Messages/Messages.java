@@ -24,7 +24,7 @@ public class Messages {
                     "\nYou see no one manages " +
                     "the tasks better than I do. Some people say that I'm even better than Duke!";
     public static final String WHAT_MESSAGE = "So, what can I do for you?";
-    public static final String FILE_PATH = "Duke.txt";
+    public static final String FILE_PATH = "Donald.txt";
     public static final String BYE_MESSAGE = "Bye! MAKE ASSISTANTS GREAT AGAIN!";
     public static final String BYE_ICON = "          _____                    _____                    _____                    _____          \n" +
             "         /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\         \n" +
@@ -48,4 +48,12 @@ public class Messages {
             "        \\::/    /                \\::/    /                \\::/____/                \\::/    /        \n" +
             "         \\/____/                  \\/____/                                           \\/____/         \n" +
             "                                                                                                    ";
+
+
+
+
+
+    public static final String NOT_FOUND_MESSAGE = "There are no such items according to the keyword you've given. Sorry!";
+    public static final String FOUND_MESSAGE = "I've found these many tasks: ";
+    public static final String MATCHING_MESSAGE = "Here are the matching tasks in your list:";
 }

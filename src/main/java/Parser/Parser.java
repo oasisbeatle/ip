@@ -16,8 +16,8 @@ public class Parser {
             taskArray[1] = userInput.substring(endPos + 1);
             if (userInput.contains("/")) {
                 slashPos = taskArray[1].indexOf("/");
-                taskArray[2] = taskArray[1].substring(slashPos + 3);
-                taskArray[1] = taskArray[1].substring(0, slashPos - 1);
+                taskArray[2] = taskArray[1].substring(slashPos + 4);
+                taskArray[1] = taskArray[1].substring(0, slashPos);
             }
             else{
                 taskArray[2] = " ";
