@@ -65,7 +65,7 @@ public class Storage {
         for(int i = 0; i < taskList.size(); i++) {
             String savedTask;
             savedTask = String.valueOf(taskList.get(i).getTaskType())+ "," + taskList.get(i).getTaskName()
-                    + "," + taskList.get(i).isTaskComplete() + "," + taskList.get(i).getTimeline() + ","
+                    + "," + taskList.get(i).isTaskComplete() + "," + taskList.get(i).getTimelineCustom() + ","
                     + "\n";
             fw.write(savedTask);
         }

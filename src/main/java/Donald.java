@@ -108,6 +108,7 @@ public class Donald {
                 break;
 
             case "find":
+                ui.taskFind(tasks.getTaskArrayList(), taskArray[1]);
                 break;
 
             default:
