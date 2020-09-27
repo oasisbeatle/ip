@@ -1,6 +1,7 @@
 package Tasks;
 
-import sun.tools.tree.BooleanExpression;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
     protected String taskName;
@@ -33,6 +34,10 @@ public abstract class Task {
     }
 
     public String getTimeline() {
+        return timeline;
+    }
+
+    public String getTimelineCustom(){
         return timeline;
     }
 }
