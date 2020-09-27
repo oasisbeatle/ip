@@ -2,7 +2,7 @@ package Tasks;
 
 import sun.tools.tree.BooleanExpression;
 
-public class Task {
+public abstract class Task {
     protected String taskName;
     protected boolean isTaskComplete;
     protected char taskType;
