@@ -1,5 +1,9 @@
 package Messages;
 
+/**
+ * Class that contains all logos, messages, error messages and ASCII characters
+ * Contains file path
+ */
 public class Messages {
 
     public static final String LINE_ICON = "-----------------------------";
