@@ -3,7 +3,6 @@
 ## Introduction
 
 
-
 ## Quick Start
 
 1. Ensure that you have Java 11 or above installed.
@@ -12,6 +11,21 @@
 ## Features 
 
 ### Add `Task`
+Add three types of tasks: Todo tasks, Deadline tasks and Event tasks. Todo tasks don't require time but events and deadlines do.
+
+### Done `Task`
+Mark a task as done.
+
+### List 
+List all of the tasks added.
+
+### Delete `Task`
+Deletes a task 
+
+### Find `Task`
+Finds a task by a particular given keyword.
+
+## Usage 
 
 ### Adding a todo: `todo`
 Adds a new item to the list of todo items.
