@@ -15,6 +15,11 @@ import java.util.ArrayList;
  */
 public class TextUi {
 
+
+    /**
+     * Outputs the initialisation of Donald
+     * @return
+     */
     public static String initDonald(){
         System.out.println("Hello from\n" + Messages.DONALD_ICON);
         System.out.println(Messages.LINE_ICON);
@@ -24,6 +29,10 @@ public class TextUi {
         return Messages.LINE_ICON;
     }
 
+
+    /**
+     * Outputs the termination of Donald
+     */
     public static void printBye() {
         System.out.println(Messages.LINE_ICON);
         System.out.println(Messages.BYE_MESSAGE);
@@ -31,6 +40,14 @@ public class TextUi {
         System.out.println(Messages.BYE_ICON);
     }
 
+
+    /**
+     * Displays a Todo task when added
+     * @param commandSubject the subject of the command entered
+     * @param taskCompletionStatus task completion status symbol
+     * @param totalTasks number of tasks in the list
+     * @param taskType type of task i.e. D, T or E
+     */
     public static void displayToDo(String commandSubject, String taskCompletionStatus,
                                    int totalTasks, char taskType) {
         System.out.println(Messages.LINE_ICON);
@@ -40,6 +57,15 @@ public class TextUi {
         System.out.println(Messages.LINE_ICON);
     }
 
+
+    /**
+     * Displays a timed task i.e. events and deadlines when added
+     * @param commandSubject the subject of the command entered
+     * @param taskCompletionStatus task completion status symbol
+     * @param totalTasks number of tasks in the list
+     * @param taskType type of task i.e. D, T or E
+     * @param timeline time data of a task
+     */
     public static void displayToDoWithTime(String commandSubject, String taskCompletionStatus,
                                    int totalTasks, char taskType, String timeline) {
         LocalDateTime time;
@@ -55,6 +81,13 @@ public class TextUi {
     }
 
 
+    /**
+     * Display the Todo task when deleted
+     * @param commandSubject the subject of the command entered
+     * @param taskCompletionStatus task completion status symbol
+     * @param totalTasks number of tasks in the list
+     * @param taskType type of task
+     */
     public static void displayDeleteTodo(String commandSubject, String taskCompletionStatus,
                                    int totalTasks, char taskType) {
         System.out.println(Messages.LINE_ICON);
@@ -64,6 +97,14 @@ public class TextUi {
         System.out.println(Messages.LINE_ICON);
     }
 
+
+    /**
+     * Display timed tasks i.e. Deadlines and Events when deleted
+     * @param commandSubject the subject of the command entered
+     * @param taskCompletionStatus task completion status symbol
+     * @param totalTasks number of tasks in the list
+     * @param taskType type of task
+     */
     public static void displayDeletedTodoWithTime(String commandSubject, String taskCompletionStatus,
                                    int totalTasks, char taskType, String timeline) {
         String adverb;
@@ -76,22 +117,33 @@ public class TextUi {
         System.out.println(Messages.LINE_ICON);
     }
 
-    public static void printDoneTask(ArrayList<Task> taskList, int i, String taskStatus) {
+    /**
+     * Displays the individual task when it is marked done
+     * @param taskList list of tasks
+     * @param taskNum task number to be printed as done
+     * @param taskStatus task completion status symbol
+     */
+    public static void printDoneTask(ArrayList<Task> taskList, int taskNum, String taskStatus) {
         System.out.println(Messages.LINE_ICON);
         System.out.println("Nice! I've marked this task as done:");
-        if(taskList.get(i).getTaskType() == 'T'){
-            System.out.println( (i +1) + ".["  + taskList.get(i).getTaskType() + "] [" +
+        if(taskList.get(taskNum).getTaskType() == 'T'){
+            System.out.println( (taskNum +1) + ".["  + taskList.get(taskNum).getTaskType() + "] [" +
                     taskStatus + "] "+
-                    taskList.get(i).getTaskName());
+                    taskList.get(taskNum).getTaskName());
         } else{
-            String adverb = (taskList.get(i).getTaskType() == 'D') ? "by:" : "at:";
-            System.out.println( (i +1) + ".["  + taskList.get(i).getTaskType() + "][" +
+            String adverb = (taskList.get(taskNum).getTaskType() == 'D') ? "by:" : "at:";
+            System.out.println( (taskNum +1) + ".["  + taskList.get(taskNum).getTaskType() + "][" +
                     taskStatus + "] "+
-                    taskList.get(i).getTaskName() + "(" + adverb + taskList.get(i).getTimeline() + ") ");
+                    taskList.get(taskNum).getTaskName() + "(" + adverb + taskList.get(taskNum).getTimeline() + ") ");
         }
         System.out.println(Messages.LINE_ICON);
     }
 
+
+    /**
+     * Displays the entire list of tasks
+     * @param taskList list of tasks
+     */
     public static void taskList(ArrayList<Task> taskList) {
         System.out.println(Messages.LINE_ICON);
         if (taskList.size() == 0){
@@ -106,21 +158,32 @@ public class TextUi {
         System.out.println(Messages.LINE_ICON);
     }
 
-    public static void printOneTask(ArrayList<Task> taskList, int i) {
-        String taskStatus = (taskList.get(i).isTaskComplete())
+    /**
+     * Displays each task while displaying list or displays a task that is found using find
+     * @param taskList list of tasks
+     * @param taskNum individual task to be printed
+     */
+    public static void printOneTask(ArrayList<Task> taskList, int taskNum) {
+        String taskStatus = (taskList.get(taskNum).isTaskComplete())
                 ? Messages.taskComplete : Messages.taskIncomplete;
-        if(taskList.get(i).getTaskType() == 'T'){
-            System.out.println( (i +1) + ".["  + taskList.get(i).getTaskType() + "] [" +
+        if(taskList.get(taskNum).getTaskType() == 'T'){
+            System.out.println( (taskNum +1) + ".["  + taskList.get(taskNum).getTaskType() + "] [" +
                     taskStatus + "] "+
-                    taskList.get(i).getTaskName());
+                    taskList.get(taskNum).getTaskName());
         } else{
-            String adverb = (taskList.get(i).getTaskType() == 'D') ? "by:" : "at:";
-            System.out.println( (i +1) + ".["  + taskList.get(i).getTaskType() + "][" +
+            String adverb = (taskList.get(taskNum).getTaskType() == 'D') ? "by:" : "at:";
+            System.out.println( (taskNum +1) + ".["  + taskList.get(taskNum).getTaskType() + "][" +
                     taskStatus + "] "+
-                    taskList.get(i).getTaskName() + "(" + adverb + taskList.get(i).getTimeline() + ") ");
+                    taskList.get(taskNum).getTaskName() + "(" + adverb + taskList.get(taskNum).getTimeline() + ") ");
         }
     }
 
+
+    /**
+     * Displays a list of tasks that match a particular keyword
+     * @param taskList list of tasks
+     * @param keyword keyword to search a task by
+     */
     public static void taskFind(ArrayList<Task> taskList, String keyword){
 
         boolean isTaskFound = false;

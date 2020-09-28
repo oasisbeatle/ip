@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class that deals with file management
+ */
 public class Storage {
 
     private String filePath;
@@ -20,6 +23,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads Donald.txt and adds to the list of tasks
+     * @return ArrayList of task from file
+     * @throws IOException
+     */
     public ArrayList<Task> readFile() throws IOException {
         File f = new File(Messages.FILE_PATH);
         ArrayList<Task> taskList = new ArrayList<>();
@@ -60,6 +68,11 @@ public class Storage {
 
     }
 
+    /**
+     * Writes the task ArrayList to Donald.txt
+     * @param taskList ArrayList of tasks
+     * @throws IOException
+     */
     public static void writeToFile(ArrayList<Task> taskList) throws IOException {
         FileWriter fw = new FileWriter(Messages.FILE_PATH);
         for(int i = 0; i < taskList.size(); i++) {
