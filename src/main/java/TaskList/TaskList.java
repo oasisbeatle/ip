@@ -11,46 +11,81 @@ import Messages.Messages;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class manages the list of tasks in the following ways:
+ * Adds Todo, Deadline and Event tasks to the list
+ * Marks tasks as complete in the list
+ * Deletes tasks in the list
+ * Returns the list and number of tasks
+ */
 public class TaskList {
     private static TextUi ui;
-    private Parser parser;
     private static ArrayList<Task> taskArrayList;
 
     public TaskList(ArrayList<Task> taskArrayList){
         this.taskArrayList = taskArrayList;
         ui = new TextUi();
-        parser = new Parser();
     }
 
     public TaskList(){
         taskArrayList = new ArrayList<Task>();
     }
 
+
+    /**
+     * Adds a Todo task
+     * @param taskArray
+     */
     public void addTodo(String[] taskArray){
         Task newTodo = new Todo(taskArray[1]);
         taskArrayList.add(newTodo);
     }
 
+
+    /**
+     * Adds a deadline task
+     * @param taskArray
+     */
     public void addDeadline(String[] taskArray){
         Task newDeadline = new Deadline(taskArray[1], taskArray[2]);
         taskArrayList.add(newDeadline);
     }
 
+
+    /**
+     * Adds an event task
+     * @param taskArray
+     */
     public void addEvent(String[] taskArray){
         Task newEvent = new Event(taskArray[1], taskArray[2]);
         taskArrayList.add(newEvent);
     }
 
+
+    /**
+     * @return taskArrayList
+     */
     public ArrayList<Task> getTaskArrayList(){
         return taskArrayList;
     }
 
+
+    /**
+     * @return size of taskArrayList
+     */
     public int getListSize(){
         return taskArrayList.size();
     }
 
-    public void taskDone(String commandSubject, ArrayList<Task> taskList) throws IOException {
-        int taskNum = Integer.parseInt(commandSubject);
+
+    /**
+     * Marks the given task as done
+     * @param taskNumber the task to be marked as done
+     * @param taskList
+     * @throws IOException
+     */
+    public void taskDone(String taskNumber, ArrayList<Task> taskList) throws IOException {
+        int taskNum = Integer.parseInt(taskNumber);
         taskNum = taskNum - 1;
         String taskStatus = Messages.taskComplete;
         char taskType = taskList.get(taskNum).getTaskType();
@@ -82,8 +117,15 @@ public class TaskList {
         ui.printDoneTask(taskList, taskNum, taskStatus);
     }
 
-    public static void taskDelete(String commandSubject, ArrayList<Task> taskList) throws IOException {
-        int taskNum = Integer.parseInt(commandSubject);
+
+    /**
+     * Deletes the given task
+     * @param taskNumber the task to be deleted
+     * @param taskList
+     * @throws IOException
+     */
+    public static void taskDelete(String taskNumber, ArrayList<Task> taskList) throws IOException {
+        int taskNum = Integer.parseInt(taskNumber);
         taskNum = taskNum - 1;
         char taskType = taskList.get(taskNum).getTaskType();
         String taskStatus = (taskList.get(taskNum).isTaskComplete())

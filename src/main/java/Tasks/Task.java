@@ -3,6 +3,9 @@ package Tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parent class for various tasks and their methods
+ */
 public abstract class Task {
     protected String taskName;
     protected boolean isTaskComplete;
