@@ -59,9 +59,8 @@ public class Storage {
             }
         } else {
             f.createNewFile();
-            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^");
-            System.out.println("File Created ^-^");
-            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^");
+            System.out.println(Messages.FILE_CREATED_MESSAGE);
+
         }
 
         return taskList;

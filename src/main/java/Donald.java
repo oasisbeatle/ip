@@ -59,7 +59,7 @@ public class Donald {
         while(true){
             userInput = in.nextLine();
 
-            if(userInput.toLowerCase().equals("bye")){
+            if(userInput.toLowerCase().equals(Messages.BYE)){
                 break;
             }
 

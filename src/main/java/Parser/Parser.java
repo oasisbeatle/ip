@@ -111,7 +111,7 @@ public class Parser {
                 break;
 
             default:
-                throw new DukeException("Sorry! I can't find your command. Please retype your command.");
+                throw new DukeException(Messages.COMMAND_NOT_FOUND_MESSAGE);
 
             }
         } catch(DukeException e){
@@ -121,7 +121,7 @@ public class Parser {
 
         } catch(NumberFormatException e){
             System.out.println(Messages.LINE_ICON);
-            System.out.println("Expected integer. Please enter a number.");
+            System.out.println(Messages.FORMAT_EXCEPTION_MESSAGE);
             System.out.println(Messages.LINE_ICON);
         }
 

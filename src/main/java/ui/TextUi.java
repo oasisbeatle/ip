@@ -51,7 +51,7 @@ public class TextUi {
     public static void displayToDo(String commandSubject, String taskCompletionStatus,
                                    int totalTasks, char taskType) {
         System.out.println(Messages.LINE_ICON);
-        System.out.println("Got it. I've added this task:");
+        System.out.println(Messages.TASK_ADDED_MESSAGE);
         System.out.println(" [" + taskType + "] [" + taskCompletionStatus + "] " + commandSubject);
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
         System.out.println(Messages.LINE_ICON);
@@ -73,7 +73,7 @@ public class TextUi {
         String adverb;
         adverb = (taskType == 'D')? "by: " : "at: ";
         System.out.println(Messages.LINE_ICON);
-        System.out.println("Got it. I've added this task:");
+        System.out.println(Messages.TASK_ADDED_MESSAGE);
         System.out.println(" [" + taskType + "] [" + taskCompletionStatus + "] "+ commandSubject + " (" + adverb +
                 time.format(DateTimeFormatter.ofPattern("MMM dd yyyy 'at' HH:mm")) + ")");
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
@@ -91,7 +91,7 @@ public class TextUi {
     public static void displayDeleteTodo(String commandSubject, String taskCompletionStatus,
                                    int totalTasks, char taskType) {
         System.out.println(Messages.LINE_ICON);
-        System.out.println("Noted. I've removed this task:");
+        System.out.println(Messages.TASK_REMOVED_MESSAGE);
         System.out.println(" [" + taskType + "] [" + taskCompletionStatus + "] " + commandSubject);
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
         System.out.println(Messages.LINE_ICON);
@@ -110,7 +110,7 @@ public class TextUi {
         String adverb;
         adverb = (taskType == 'D')? "by:" : "at:";
         System.out.println(Messages.LINE_ICON);
-        System.out.println("Noted. I've removed this task:");
+        System.out.println(Messages.TASK_REMOVED_MESSAGE);
         System.out.println(" [" + taskType + "] [" + taskCompletionStatus + "] "+ commandSubject + " (" + adverb +
                 timeline + ")");
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
@@ -125,7 +125,7 @@ public class TextUi {
      */
     public static void printDoneTask(ArrayList<Task> taskList, int taskNum, String taskStatus) {
         System.out.println(Messages.LINE_ICON);
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(Messages.TASK_DONE_MESSAGE);
         if(taskList.get(taskNum).getTaskType() == 'T'){
             System.out.println( (taskNum +1) + ".["  + taskList.get(taskNum).getTaskType() + "] [" +
                     taskStatus + "] "+
@@ -147,10 +147,10 @@ public class TextUi {
     public static void taskList(ArrayList<Task> taskList) {
         System.out.println(Messages.LINE_ICON);
         if (taskList.size() == 0){
-            System.out.println("There are no tasks left for you. Add a new task!");
+            System.out.println(Messages.NO_TASKS_IN_LIST);
         }
         else{
-            System.out.println("Here are the tasks in your list:");
+            System.out.println(Messages.TASKS_IN_LIST_MESSAGE);
         }
         for(int i = 0; i < taskList.size(); i++){
             printOneTask(taskList, i);
