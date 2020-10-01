@@ -31,7 +31,7 @@ Exits the program.
 
 ## Usage 
 
-`:bulb:` `NAME is the name of the task we wish to add`
+:bulb: `NAME is the name of the task we wish to add`
 
 ### Adding a todo: `todo`
 Adds a new item to the list of todo items.
