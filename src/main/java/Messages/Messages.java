@@ -8,8 +8,8 @@ public class Messages {
 
     /** General Messages */
     public static final String LINE_ICON = "-----------------------------";
-    public static final String taskIncomplete = "\u2718";
-    public static final String taskComplete = "\u2713";
+    public static final String taskIncomplete = "N";
+    public static final String taskComplete = "Y";
     public static final String DONALD_ICON = "         ________\n" +
             "        /        \\\n" +
             "     __/       (o)\\__\n" +
