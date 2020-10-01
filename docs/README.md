@@ -26,6 +26,9 @@ Deletes a task
 ### Find `Task`
 Finds a task by a particular given keyword.
 
+### Bye
+Exits the program.
+
 ## Usage 
 
 `:bulb: NAME is the name of the task we wish to add`
@@ -79,6 +82,12 @@ Format: `find KEYWORD`
 
 Find a task using the keyword 'sleep': `find sleep`
 
+### Exiting from the program: `bye`
+
+Format: `bye`
+
+Usage: `bye`
+
 
 ## Command Summary
 
@@ -91,3 +100,4 @@ done | done INDEX | done 2
 list | list | list
 delete | delete INDEX | delete 1
 find | find KEYWORD | find sleep
+bye | bye | bye
