@@ -5,11 +5,11 @@ import java.lang.Exception;
 /**
  * Exception if Donald can't process the task
  */
-public class DukeException extends Exception {
+public class DonaldException extends Exception {
 
     private String message;
 
-    public DukeException(String message){
+    public DonaldException(String message){
         super(message);
         this.message = message;
     }

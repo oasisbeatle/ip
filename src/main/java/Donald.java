@@ -1,4 +1,4 @@
-import Exceptions.DukeException;
+import Exceptions.DonaldException;
 import TaskList.TaskList;
 import Messages.Messages;
 import ui.TextUi;
@@ -46,9 +46,9 @@ public class Donald {
     /**
      * Runs Donald
      * @throws IOException
-     * @throws DukeException
+     * @throws DonaldException
      */
-    public void run() throws IOException, DukeException {
+    public void run() throws IOException, DonaldException {
 
         //Initialise Donald
         ui.initDonald();
@@ -75,9 +75,9 @@ public class Donald {
      * Runs an instance of Donald
      * @param args if any
      * @throws IOException
-     * @throws DukeException
+     * @throws DonaldException
      */
-    public static void main(String[] args) throws IOException, DukeException {
+    public static void main(String[] args) throws IOException, DonaldException {
         new Donald(Messages.FILE_PATH).run();
     }
 

@@ -1,7 +1,7 @@
 package ui;
 
 
-import Exceptions.DukeException;
+import Exceptions.DonaldException;
 import Tasks.Task;
 import Messages.Messages;
 
@@ -67,7 +67,7 @@ public class TextUi {
      * @param timeline time data of a task
      */
     public static void displayToDoWithTime(String commandSubject, String taskCompletionStatus,
-                                   int totalTasks, char taskType, String timeline) {
+                                           int totalTasks, char taskType, String timeline) {
         LocalDateTime time;
         time = LocalDateTime.parse(timeline, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         String adverb;
@@ -89,7 +89,7 @@ public class TextUi {
      * @param taskType type of task
      */
     public static void displayDeleteTodo(String commandSubject, String taskCompletionStatus,
-                                   int totalTasks, char taskType) {
+                                         int totalTasks, char taskType) {
         System.out.println(Messages.LINE_ICON);
         System.out.println(Messages.TASK_REMOVED_MESSAGE);
         System.out.println(" [" + taskType + "] [" + taskCompletionStatus + "] " + commandSubject);
@@ -106,7 +106,7 @@ public class TextUi {
      * @param taskType type of task
      */
     public static void displayDeletedTodoWithTime(String commandSubject, String taskCompletionStatus,
-                                   int totalTasks, char taskType, String timeline) {
+                                                  int totalTasks, char taskType, String timeline) {
         String adverb;
         adverb = (taskType == 'D')? "by:" : "at:";
         System.out.println(Messages.LINE_ICON);

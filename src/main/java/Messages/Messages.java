@@ -76,4 +76,5 @@ public class Messages {
     public static final String TASKS_IN_LIST_MESSAGE = "Here are the tasks in your list: ";
     public static final String NO_TASKS_IN_LIST = "There are no tasks left for you. Add a new task!";
     public static final String BYE = "bye";
+    public static final String SAVE_FILE_ERROR = "There was an error in loading the save file!";
 }
