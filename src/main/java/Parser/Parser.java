@@ -1,6 +1,6 @@
 package Parser;
 
-import Exceptions.DukeException;
+import Exceptions.DonaldException;
 import Storage.Storage;
 import TaskList.TaskList;
 import ui.TextUi;
@@ -62,11 +62,10 @@ public class Parser {
     /**
      * Manages each of the commands
      * @param userInput Input Stream of user
-     * @throws DukeException
+     * @throws DonaldException
      * @throws IOException
      */
-    public void taskManager(String userInput) throws DukeException, IOException {
-        taskArray = generateTask(userInput);
+    public void taskManager(String userInput){
 
         //execution of the commands
         try {
@@ -111,18 +110,23 @@ public class Parser {
                 break;
 
             default:
-                throw new DukeException(Messages.COMMAND_NOT_FOUND_MESSAGE);
+                throw new DonaldException(Messages.COMMAND_NOT_FOUND_MESSAGE);
 
             }
-        } catch(DukeException e){
+
+        } catch(DonaldException e){
             System.out.println(Messages.LINE_ICON);
             System.out.println(e.getMessage());
             System.out.println(Messages.LINE_ICON);
 
         } catch(NumberFormatException e){
-            System.out.println(Messages.LINE_ICON);
-            System.out.println(Messages.FORMAT_EXCEPTION_MESSAGE);
-            System.out.println(Messages.LINE_ICON);
+            ui.printNumberFormatException();
+
+        } catch(IOException e){
+            ui.printIoException();
+
+        } catch(NullPointerException e) {
+            ui.printNullPointerException();
         }
 
     }

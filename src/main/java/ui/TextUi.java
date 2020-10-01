@@ -1,13 +1,11 @@
 package ui;
 
 
-import Exceptions.DukeException;
 import Tasks.Task;
 import Messages.Messages;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -173,8 +171,8 @@ public class TextUi {
         } else{
             String adverb = (taskList.get(taskNum).getTaskType() == 'D') ? "by:" : "at:";
             System.out.println( (taskNum +1) + ".["  + taskList.get(taskNum).getTaskType() + "][" +
-                    taskStatus + "] "+
-                    taskList.get(taskNum).getTaskName() + "(" + adverb + taskList.get(taskNum).getTimeline() + ") ");
+                    taskStatus + "] "+ taskList.get(taskNum).getTaskName() + "(" +
+                    adverb + " " + taskList.get(taskNum).getTimeline() + ") ");
         }
     }
 
@@ -209,6 +207,32 @@ public class TextUi {
         System.out.println(Messages.LINE_ICON);
     }
 
+    /**
+     * Displays the error when input format is incorrect
+     */
+    public static void printNumberFormatException(){
+        System.out.println(Messages.LINE_ICON);
+        System.out.println(Messages.FORMAT_EXCEPTION_MESSAGE);
+        System.out.println(Messages.LINE_ICON);
+    }
+
+    /**
+     * Displays the error when save file can't be loaded
+     */
+    public static void printIoException(){
+        System.out.println(Messages.LINE_ICON);
+        System.out.println(Messages.SAVE_FILE_ERROR);
+        System.out.println(Messages.LINE_ICON);
+    }
+
+    /**
+     *
+     */
+    public static void printNullPointerException(){
+        System.out.println(Messages.LINE_ICON);
+        System.out.println(Messages.INVALID_TASK_MESSAGE);
+        System.out.println(Messages.LINE_ICON);
+    }
 
 
 }

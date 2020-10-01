@@ -1,4 +1,4 @@
-import Exceptions.DukeException;
+import Exceptions.DonaldException;
 import TaskList.TaskList;
 import Messages.Messages;
 import ui.TextUi;
@@ -30,14 +30,14 @@ public class Donald {
      * @param filePath path of file
      * @throws IOException if file is empty
      */
-    public Donald(String filePath) throws IOException {
+    public Donald(String filePath) {
         ui = new TextUi();
         storage = new Storage(Messages.FILE_PATH);
         parse = new Parser(storage);
         try {
             tasks = new TaskList(storage.readFile());
         } catch(IOException e) {
-            System.out.println("File does not have any information.");
+            ui.printIoException();
             tasks = new TaskList();
         }
 
@@ -45,10 +45,8 @@ public class Donald {
 
     /**
      * Runs Donald
-     * @throws IOException
-     * @throws DukeException
      */
-    public void run() throws IOException, DukeException {
+    public void run() {
 
         //Initialise Donald
         ui.initDonald();
@@ -74,10 +72,8 @@ public class Donald {
     /**
      * Runs an instance of Donald
      * @param args if any
-     * @throws IOException
-     * @throws DukeException
      */
-    public static void main(String[] args) throws IOException, DukeException {
+    public static void main(String[] args) {
         new Donald(Messages.FILE_PATH).run();
     }
 
