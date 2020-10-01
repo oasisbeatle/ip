@@ -18,25 +18,24 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 1. After the importing is complete, locate the `src/main/java/Donald.java` file, right-click it, and choose `Run Donald.main()`. If the setup is correct, you should see something like the below:
    ```
    Hello from
-   
-    XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
- ` XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
- XXXXXXXXXXXXXXXXXX         XXXXXXXX
-XXXXXXXXXXXXXXXX              XXXXXXX
-XXXXXXXXXXXXX                   XXXXX
- XXX     _________ _________     XXX      
-  XX    I  _xxxxx I xxxxx_  I    XX        
- ( X----I         I         I----X )
-( +I    I      00 I 00      I    I+ )
- ( I    I    __0  I  0__    I    I )
-  (I    I______ /   \_______I    I)
-   I           ( ___ )           I
-   I    _  :::::::::::::::  _    i
-    \    \___ ::::::::: ___/    /
-     \_      \_________/      _/
-       \        \___,        /
-         \                 /
-          |\             /|
-          |  \_________/  |
-      
+            ________
+        /        \
+     __/       (o)\__
+    /     ______\\   \
+    |____/__  __\____|
+       [  --~~--  ]
+        |(  L   )|
+  `___----\  __  /----___
+ /   |  < \____/ >   |   \
+/    |   < \--/ >    |    \
+||||||    \ \/ /     ||||||
+|          \  /   o       |
+|     |     \/   === |    |
+|     |      |o  ||| |    |
+|     \______|   +#* |    |
+|            |o      |    |
+ \           |      /     /
+ |\__________|o    /     /
+ |           |    /     /
+ 
    ```
