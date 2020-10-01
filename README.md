@@ -16,7 +16,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    1. Select the project directory, and click `OK`
    1. If there are any further prompts, accept the defaults.
 1. After the importing is complete, locate the `src/main/java/Donald.java` file, right-click it, and choose `Run Donald.main()`. If the setup is correct, you should see something like the below:
-   ```
+
    Hello from
             ________
         /        \
@@ -25,7 +25,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
     |____/__  __\____|
        [  --~~--  ]
         |(  L   )|
-  `___----\  __  /----___
+  ___----\  __  /----___
  /   |  < \____/ >   |   \
 /    |   < \--/ >    |    \
 ||||||    \ \/ /     ||||||
@@ -38,4 +38,4 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
  |\__________|o    /     /
  |           |    /     /
  
-   ```
+
