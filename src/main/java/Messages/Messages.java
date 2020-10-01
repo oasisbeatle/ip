@@ -6,6 +6,7 @@ package Messages;
  */
 public class Messages {
 
+    /** General Messages */
     public static final String LINE_ICON = "-----------------------------";
     public static final String taskIncomplete = Character.toString((char) 0x2718);
     public static final String taskComplete = Character.toString((char) 0x2713);
@@ -76,5 +77,11 @@ public class Messages {
     public static final String TASKS_IN_LIST_MESSAGE = "Here are the tasks in your list: ";
     public static final String NO_TASKS_IN_LIST = "There are no tasks left for you. Add a new task!";
     public static final String BYE = "bye";
+
+
+    /** Error Messages */
     public static final String SAVE_FILE_ERROR = "There was an error in loading the save file!";
+    public static final String TASK_NUMBER_ERROR = "The task number entered does not exist. Re-enter the task number";
+    public static final String DATE_FORMAT_ERROR = "The date has either not been entered or is in the wrong format. \n" +
+                    "Enter the date in the format dd-MM-yyyy HH:mm";
 }

@@ -224,5 +224,21 @@ public class TextUi {
         System.out.println(Messages.LINE_ICON);
     }
 
+    /**
+     * Displays the error when the task number does not exist
+     */
+    public static void printInvalidIndexError(){
+        System.out.println(Messages.LINE_ICON);
+        System.out.println(Messages.TASK_NUMBER_ERROR);
+        System.out.println(Messages.LINE_ICON);
+    }
 
+    /**
+     * Displays the error when the date is absent or is in the wrong format
+     */
+    public static void printInvalidDateFormat(){
+        System.out.println(Messages.LINE_ICON);
+        System.out.println(Messages.DATE_FORMAT_ERROR);
+        System.out.println(Messages.LINE_ICON);
+    }
 }

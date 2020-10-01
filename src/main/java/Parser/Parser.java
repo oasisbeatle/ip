@@ -7,6 +7,7 @@ import ui.TextUi;
 import Messages.Messages;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * Class that processes the user input and makes sense of command
@@ -123,6 +124,11 @@ public class Parser {
         } catch(NumberFormatException e) {
             ui.printNumberFormatException();
 
+        } catch(IndexOutOfBoundsException e){
+            ui.printInvalidIndexError();
+
+        } catch(DateTimeParseException e){
+            ui.printInvalidDateFormat();
         }
 
     }

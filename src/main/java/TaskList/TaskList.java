@@ -124,7 +124,7 @@ public class TaskList {
      * @param taskList
      * @throws IOException
      */
-    public static void taskDelete(String taskNumber, ArrayList<Task> taskList) throws IOException {
+    public static void taskDelete(String taskNumber, ArrayList<Task> taskList) throws IOException{
         int taskNum = Integer.parseInt(taskNumber);
         taskNum = taskNum - 1;
         char taskType = taskList.get(taskNum).getTaskType();
