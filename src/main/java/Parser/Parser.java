@@ -114,19 +114,18 @@ public class Parser {
                 throw new DonaldException(Messages.COMMAND_NOT_FOUND_MESSAGE);
 
             }
+
         } catch(DonaldException e){
             System.out.println(Messages.LINE_ICON);
             System.out.println(e.getMessage());
             System.out.println(Messages.LINE_ICON);
 
-        } catch(NumberFormatException e){
-            System.out.println(Messages.LINE_ICON);
-            System.out.println(Messages.FORMAT_EXCEPTION_MESSAGE);
-            System.out.println(Messages.LINE_ICON);
+        } catch(NumberFormatException e) {
+            ui.printNumberFormatException();
+
         }
 
     }
-
 
 
 }

@@ -30,14 +30,14 @@ public class Donald {
      * @param filePath path of file
      * @throws IOException if file is empty
      */
-    public Donald(String filePath) throws IOException {
+    public Donald(String filePath) {
         ui = new TextUi();
         storage = new Storage(Messages.FILE_PATH);
         parse = new Parser(storage);
         try {
             tasks = new TaskList(storage.readFile());
         } catch(IOException e) {
-            System.out.println("File does not have any information.");
+            ui.printIoException();
             tasks = new TaskList();
         }
 
